@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy New Year 2026</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{height:100vh;overflow:hidden;background:black;color:white;}
+
+.bg{
+position:fixed;inset:0;
+background:
+radial-gradient(circle at top,#ff0080,#000),
+radial-gradient(circle at bottom,#00f2ff,#000);
+background-blend-mode:screen;
+animation:bgMove 10s infinite alternate;
+}
+@keyframes bgMove{0%{filter:hue-rotate(0deg);}100%{filter:hue-rotate(60deg);}}
+
+canvas{position:fixed;inset:0;}
+
+.card{
+position:absolute;top:50%;left:50%;
+transform:translate(-50%,-50%);
+padding:45px;width:90%;max-width:600px;
+text-align:center;
+backdrop-filter:blur(15px);
+background:rgba(255,255,255,0.08);
+border-radius:25px;
+border:1px solid rgba(255,255,255,0.25);
+box-shadow:0 0 45px rgba(0,255,255,0.35);
+}
+
+h1{
+font-size:3rem;font-weight:800;
+background:linear-gradient(90deg,#ff00cc,#00ffff,#ffcc00);
+background-size:300%;
+-webkit-background-clip:text;
+color:transparent;
+animation:neon 4s infinite linear;
+}
+@keyframes neon{0%{background-position:0%;}100%{background-position:300%;}}
+
+.year{
+font-size:4.3rem;font-weight:900;margin:12px 0;
+background:linear-gradient(270deg,#00ffff,#ff00cc,#ffcc00,#00ff99);
+background-size:600%;
+-webkit-background-clip:text;
+color:transparent;
+animation:yearGlow 6s infinite linear;
+}
+@keyframes yearGlow{0%{background-position:0%;}100%{background-position:600%;}}
+
+p{font-size:1.05rem;opacity:0.85;margin-bottom:14px;}
+
+.signature-box{
+display:inline-block;
+padding:6px 16px;
+margin-bottom:22px;
+font-family:'Montserrat',sans-serif;
+font-size:0.78rem;
+font-weight:600;
+letter-spacing:1px;
+text-transform:uppercase;
+color:rgba(255,255,255,0.85);
+border-radius:20px;
+background:rgba(255,255,255,0.08);
+border:1px solid rgba(255,255,255,0.25);
+backdrop-filter:blur(10px);
+}
+
+button{
+padding:14px 38px;font-size:1rem;font-weight:600;
+border:none;border-radius:50px;
+cursor:pointer;color:black;
+background:linear-gradient(90deg,#00ffff,#ff00cc);
+}
+
+.footer{
+position:fixed;bottom:14px;width:100%;
+text-align:center;font-size:0.8rem;opacity:0.6;
+}
+</style>
+</head>
+
+<body>
+<div class="bg"></div>
+<canvas id="canvas"></canvas>
+
+<div class="card">
+<h1>Happy New Year</h1>
+<div class="year">2026</div>
+
+<p>
+May this year bring you success, happiness,<br>
+love and unlimited positive energy ✨
+</p>
+
+<div class="signature-box">
+Design & Developed by Ashu Chauhan 👻🍷
+</div>
+
+<button onclick="playMusic()">🎵 Play Celebration</button>
+</div>
+
+<div class="footer">
+Designed with ❤️ | Pro Web Experience
+</div>
+
+<audio id="music">
+<source src="music.mp3" type="audio/mp3">
+</audio>
+
+<script>
+function playMusic(){document.getElementById("music").play();}
+
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+canvas.width=innerWidth;canvas.height=innerHeight;
+
+let particles=[];
+for(let i=0;i<120;i++){
+particles.push({
+x:Math.random()*canvas.width,
+y:Math.random()*canvas.height,
+r:Math.random()*2+1,
+dx:(Math.random()-0.5)*0.8,
+dy:(Math.random()-0.5)*0.8
+});
+}
+
+function animate(){
+ctx.clearRect(0,0,canvas.width,canvas.height);
+particles.forEach(p=>{
+ctx.beginPath();
+ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fillStyle="rgba(0,255,255,0.7)";
+ctx.fill();
+p.x+=p.dx;p.y+=p.dy;
+if(p.x<0||p.x>canvas.width)p.dx*=-1;
+if(p.y<0||p.y>canvas.height)p.dy*=-1;
+});
+requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>
